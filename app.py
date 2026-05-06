@@ -12,9 +12,9 @@ app.secret_key = os.getenv('SECRET_KEY')
 
 # --- EMAIL CONFIGURATION ---
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-
+app.config['MAIL_PORT'] = 465  # Use 465 instead of 587
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True  # Use SSL for a more stable connection
 # Pull credentials from the .env file
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
