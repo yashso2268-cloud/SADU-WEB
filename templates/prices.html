@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SADU | Investment Architecture</title>
+    <!-- CSS link matches Flask requirements[cite: 1] -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <!-- Custom Cursor elements must be present on every page -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+<header class="main-header">
+    <nav class="container nav-grid">
+        <!-- Left Nav (Laptop only) -->
+        <ul class="nav-links laptop-only">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#services">Services</a></li>
+        </ul>
+
+        <!-- Centered Logo (Always visible) -->
+        <div class="logo">SADU</div>
+
+        <!-- Right Nav (Laptop only) -->
+        <ul class="nav-links laptop-only">
+            <li><a href="/prices">Prices</a></li>
+            <li><a href="/#contact" class="cta-nav">Connect</a></li>
+        </ul>
+
+        <!-- Mobile Toggle (Mobile only) -->
+        <div class="mobile-toggle" id="mobileToggle">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+</header>
+
+<!-- Separate Mobile Drawer (Hidden on Laptop) -->
+<div class="mobile-wrapper" id="navWrapper">
+    <ul class="mobile-nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/prices">Prices</a></li>
+        <li><a href="/#contact">Connect</a></li>
+    </ul>
+</div>
+
+    <main class="pricing-page">
+        <section class="pricing-hero">
+            <div class="container">
+                <div class="section-header animate">
+                    <h2>Investment Tiers</h2>
+                    <div class="line"></div>
+                </div>
+                
+                <div class="bento-grid">
+    <!-- 1. E-COMMERCE TIER -->
+    <div class="glass-card animate delay-1">
+        <div class="bento-icon">🛒</div>
+        <h3>E-Commerce</h3>
+        <p class="price-value">₹45,000+</p>
+        <ul class="price-features">
+            <li>Inventory Management</li>
+            <li>Payment Gateway Integration</li>
+            <li>Customer Dashboard</li>
+        </ul>
+        <a href="/#contact" class="btn-main">Deploy Store</a>
+    </div>
+
+    <!-- 2. SAAS PLATFORM -->
+    <div class="glass-card animate delay-2">
+        <div class="bento-icon">⚙️</div>
+        <h3>SaaS Architecture</h3>
+        <p class="price-value">₹1,20,000+</p>
+        <ul class="price-features">
+            <li>User Authentication</li>
+            <li>Subscription Logic</li>
+            <li>API Development</li>
+        </ul>
+        <a href="/#contact" class="btn-main">Start Build</a>
+    </div>
+
+    <!-- 3. BUSINESS PORTAL -->
+    <div class="glass-card animate delay-3">
+        <div class="bento-icon">🏛️</div>
+        <h3>Business Portal</h3>
+        <p class="price-value">₹30,000+</p>
+        <ul class="price-features">
+            <li>SEO Optimized</li>
+            <li>CMS Integration</li>
+            <li>Lead Generation Tools</li>
+        </ul>
+        <a href="/#contact" class="btn-main">Get Started</a>
+    </div>
+
+    <!-- 4. HIGH-CONVERSION LANDING PAGE -->
+    <div class="glass-card animate delay-4">
+        <div class="bento-icon">🎯</div>
+        <h3>Landing Page</h3>
+        <p class="price-value">₹12,000+</p>
+        <ul class="price-features">
+            <li>A/B Testing Ready</li>
+            <li>Ultra-Fast Loading</li>
+            <li>Mobile-First Design</li>
+        </ul>
+        <a href="/#contact" class="btn-main">Launch Now</a>
+    </div>
+</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JS for Cursor and Scroll Animations[cite: 3] -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
