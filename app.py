@@ -1,23 +1,22 @@
 import os
-from flask import Flask, render_template, request, flash, redirect, url_for # type: ignore
-from flask_mail import Mail, Message # type: ignore
-from dotenv import load_dotenv # type: ignore
+from flask import Flask, render_template, request, flash, redirect, url_for
+from flask_mail import Mail, Message
 
-# Load variables from .env file
-load_dotenv()
-
+# 1. REMOVE load_dotenv() - Vercel handles this automatically
 app = Flask(__name__)
-# Pull the secret key from the .env file
-app.secret_key = os.getenv('SECRET_KEY')
+
+# 2. Use a fallback for Secret Key so it doesn't crash if missing
+app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
 
 # --- EMAIL CONFIGURATION ---
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465  # Use 465 instead of 587
+app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True  # Use SSL for a more stable connection
-# Pull credentials from the .env file
-app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_USE_SSL'] = True
+
+# 3. Use os.environ.get to prevent crashes if keys are missing
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
 mail = Mail(app)
 
@@ -33,33 +32,28 @@ def prices():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    # 1. Get data from the HTML form
     name = request.form.get('name')
     email = request.form.get('email')
     message = request.form.get('message')
 
-    # 2. Basic validation
     if not name or not email or not message:
         flash("All fields are required.", "error")
         return redirect(url_for('index'))
 
-    # 3. Create the Email Message
     msg = Message(subject=f"SADU Inquiry: {name}",
                   sender=app.config['MAIL_USERNAME'],
-                  recipients=[app.config['MAIL_USERNAME']]) # Sending to yourself
+                  recipients=[app.config['MAIL_USERNAME']])
     
     msg.body = f"New Lead Generated:\n\nName: {name}\nEmail: {email}\n\nMessage:\n{message}"
     
-    # 4. Try to send it
     try:
         mail.send(msg)
-        flash("Inquiry sent successfully! Our team will contact you shortly.", "success")
+        flash("Inquiry sent successfully!", "success")
     except Exception as e:
-        # This will print the error to your terminal for debugging
-        print(f"DEBUGGING ERROR: {e}") 
-        flash("Our mail server is busy. Please try again in a moment.", "error")
+        print(f"ERROR: {e}") 
+        flash("Mail server error. Please try again.", "error")
         
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# This is correct for Vercel
+app = app
